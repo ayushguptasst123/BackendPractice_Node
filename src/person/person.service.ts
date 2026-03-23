@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Person } from './dto/person.entity';
 import { CreatePersonDto } from './dto/create-person-dto';
 
@@ -18,6 +18,12 @@ export class PersonService {
     };
     this.idCounter++;
     this.persons.push(person);
+    return person;
+  }
+
+  public findSinglePerson(id: number): Person {
+    const person = this.persons.find((p) => p.id === id);
+    if (!person) throw new NotFoundException('Person not found');
     return person;
   }
 }

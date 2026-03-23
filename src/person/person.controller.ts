@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from './dto/person.entity';
 import { CreatePersonDto } from './dto/create-person-dto';
@@ -15,5 +15,10 @@ export class PersonController {
   @Post()
   create(@Body() incomeData: CreatePersonDto) {
     return this.personService.create(incomeData);
+  }
+
+  @Get(':id')
+  findSingleById(@Param('id') id: string) {
+    return this.personService.findSinglePerson(Number(id));
   }
 }
