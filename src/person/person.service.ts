@@ -4,7 +4,12 @@ import { CreatePersonDto } from './dto/create-person-dto';
 
 @Injectable()
 export class PersonService {
-  persons: Person[] = [];
+  persons: Person[] = [
+    {
+      id: 1,
+      name: 'Ayush',
+    },
+  ];
   private idCounter: number = 1;
 
   public findAll(): Person[] {

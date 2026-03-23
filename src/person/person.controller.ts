@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from './dto/person.entity';
 import { CreatePersonDto } from './dto/create-person-dto';
+import { ApiException } from 'src/Errors/ApiException';
 
 @Controller('person')
 export class PersonController {
@@ -18,7 +19,11 @@ export class PersonController {
   }
 
   @Get(':id')
-  findSingleById(@Param('id') id: string) {
+  findSingleById(@Req() req, @Param('id') id: string) {
+    console.log(req.headers.accept);
+
+    if (req.headers.accept !== 'application/json')
+      throw new ApiException(`can't accept this header`, 500);
     return this.personService.findSinglePerson(Number(id));
   }
 }
