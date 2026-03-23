@@ -20,10 +20,11 @@ export class PersonController {
 
   @Get(':id')
   findSingleById(@Req() req, @Param('id') id: string) {
+    console.log(req);
     console.log(req.headers.accept);
-
-    if (req.headers.accept !== 'application/json')
-      throw new ApiException(`can't accept this header`, 500);
+    // If we use this then we have to send accept mannual on FE
+    // if (req.headers.accept !== 'application/json')
+    //   throw new ApiException(`can't work with headers accept`, 500);
     return this.personService.findSinglePerson(Number(id));
   }
 }
