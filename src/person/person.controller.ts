@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from './dto/person.entity';
+import { CreatePersonDto } from './dto/create-person-dto';
 
 @Controller('person')
 export class PersonController {
@@ -9,5 +10,10 @@ export class PersonController {
   @Get()
   findAll(): Person[] {
     return this.personService.findAll();
+  }
+
+  @Post()
+  create(@Body() incomeData: CreatePersonDto) {
+    return this.personService.create(incomeData);
   }
 }
