@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -63,5 +64,9 @@ export class PersonController {
   @Put(':id')
   modifyPerson(@Param('id') id: string, @Body() data: CreatePersonDto) {
     return this.personService.modifySinglePerson(Number(id), data);
+  }
+  @Delete(':id')
+  deletePerson(@Param('id') id: string) {
+    return this.personService.deleteSinglePerson(Number(id));
   }
 }

@@ -44,4 +44,17 @@ export class PersonService {
 
     return currPerson;
   }
+
+  public deleteSinglePerson(id: number): string {
+    const afterDelete = this.persons.filter((p) => p.id !== id);
+
+    if (this.persons.length === afterDelete.length)
+      throw new ApiException(
+        `Can't delete the Person with id: ${id}. Please double check the id`,
+        500,
+      );
+    else this.persons = afterDelete;
+
+    return 'Success';
+  }
 }
