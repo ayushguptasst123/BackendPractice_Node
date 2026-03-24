@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Person } from './dto/person.entity';
 import { CreatePersonDto } from './dto/create-person-dto';
+import { ApiException } from 'src/Errors/ApiException';
 
 @Injectable()
 export class PersonService {
@@ -10,7 +11,8 @@ export class PersonService {
       name: 'Ayush',
     },
   ];
-  private idCounter: number = 1;
+
+  private idCounter: number = 2;
 
   public findAll(): Person[] {
     return this.persons;
@@ -30,5 +32,16 @@ export class PersonService {
     const person = this.persons.find((p) => p.id === id);
     if (!person) throw new NotFoundException('Person not found');
     return person;
+  }
+
+  public modifySinglePerson(id: number, data: CreatePersonDto): Person {
+    const currPerson = this.persons.find((p) => p.id === id);
+
+    if (!currPerson)
+      throw new ApiException(`Can't find Person with id: ${id}`, 404);
+
+    currPerson.name = data.name;
+
+    return currPerson;
   }
 }

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Req,
+} from '@nestjs/common';
 import { PersonService } from './person.service';
 import { Person } from './dto/person.entity';
 import { CreatePersonDto } from './dto/create-person-dto';
@@ -49,5 +58,10 @@ export class PersonController {
     //   throw new ApiException(`can't work with headers accept`, 500);
 
     return this.personService.findSinglePerson(Number(id));
+  }
+
+  @Put(':id')
+  modifyPerson(@Param('id') id: string, @Body() data: CreatePersonDto) {
+    return this.personService.modifySinglePerson(Number(id), data);
   }
 }
