@@ -69,4 +69,9 @@ export class PersonController {
   deletePerson(@Param('id') id: string) {
     return this.personService.deleteSinglePerson(Number(id));
   }
+
+  @Get('/delete/:id')
+  deletePersonByGet(@Param('id') id: string) {
+    return this.personService.deleteByGetMethod(Number(id));
+  }
 }
