@@ -6,7 +6,7 @@ After API request we get json response with some headers which is
   - In my case it is 'Express'
     <br>
 
-- content-type: `says which type got on reponse`
+- content-type: `says which type got on response`
   - I got application/json and encoding format which is charset=utf-8
   - "application/json; charset=utf-8"
     <br>
@@ -29,3 +29,10 @@ After API request we get json response with some headers which is
 - Keep-Alive: `Gives time to check alive or not`
   - timeout=5
     <br>
+
+## Import package
+
+To install checking decorator like @IsString()
+```
+npm install class-validator class-transformer
+```

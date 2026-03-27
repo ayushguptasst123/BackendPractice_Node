@@ -31,10 +31,11 @@ export class PersonController {
   }
 
   @Post('/dummy')
-  dummyPost(@Body() data) {
+  dummyPost(@Body() data: CreatePersonDto) {
     // This show undefine
     // Check main.ts
     console.log(data);
+    return data;
   }
 
   // Here order matters
