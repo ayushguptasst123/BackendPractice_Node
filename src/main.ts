@@ -1,14 +1,31 @@
 import { NestFactory } from '@nestjs/core';
 import { PersonModule } from './person/person.module';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(PersonModule);
-  // app.useGlobalPipes(
-  //   new ValidationPipe({
-  //     whitelist: true,
-  //     forbidNonWhitelisted: true,
-  //   }),
-  // );
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      validationError: {
+        target: true,
+        value: true,
+      },
+      exceptionFactory: (errors) => {
+        return new BadRequestException({
+          message: 'Validation Failed ',
+          errors: errors.map((err) => {
+            return {
+              Error: Object.keys(err.constraints || {})[0],
+              Desc: Object.values(err.constraints || {})[0],
+            };
+          }),
+          totalError: errors.length,
+        });
+      },
+    }),
+  );
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

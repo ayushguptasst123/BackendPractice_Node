@@ -53,18 +53,18 @@ export class PersonController {
   dummyPost(
     // Apply to the body
     @Body(
-      new ValidationPipe({
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        enableDebugMessages: true,
-        exceptionFactory: (errors) => {
-          const formattedError = [];
+      // new ValidationPipe({
+      //   whitelist: true,
+      //   forbidNonWhitelisted: true,
+      //   enableDebugMessages: true,
+      //   exceptionFactory: (errors) => {
+      //     const formattedError = [];
 
-          errors.forEach((err) => {
-            console.log(err);
-          });
-        },
-      }),
+      //     errors.forEach((err) => {
+      //       console.log(err);
+      //     });
+      //   },
+      // }),
     )
     data: CreatePersonDto,
   ) {
